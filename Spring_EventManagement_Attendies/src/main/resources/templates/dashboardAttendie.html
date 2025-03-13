@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Assigned Tasks</title>
+</head>
+<body>
+    <h2>Your Assigned Tasks</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Event Name</th>
+                <th>Event Date</th>
+                <th>Event Time</th>
+                  <th>Status</th> <!-- Column for status -->
+                <th>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="task : ${task}">
+                <td th:text="${task.tId}"></td>
+                <td th:text="${task.eName}"></td>
+                <td th:text="${task.eDate}"></td>
+               <td th:text="${task.eTime}"></td>
+                <td th:text="${task.status ? 'Completed' : 'Pending'}"></td>
+                <td>
+                   
+<form th:action="@{/EventManagement/updateTaskStatus}" method="post">
+    <input type="hidden" name="id" th:value="${task.bId}" />
+ <input type="hidden" name="taskId" th:value="${task.tId}">
+    <input type="hidden" name="attendieId" th:value="${attendieId}">
+    <input type="hidden" name="status" value="Completed">
+    <button type="submit">Completed</button>
+</form>
+
+
+
+                </td>
+        </tbody>
+    </table>
+
+    <!-- Debugging: Show total number of tasks fetched -->
+    <!-- <p>Total Tasks: <span th:text="${#lists.size(task)}"></span></p> -->
+</body>
+</html>
